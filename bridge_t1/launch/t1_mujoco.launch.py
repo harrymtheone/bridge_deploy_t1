@@ -12,7 +12,7 @@ import os
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, ExecuteProcess
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, Command
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, Command, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -75,18 +75,14 @@ def generate_launch_description():
     
     # MuJoCo simulation node (runs physics and publishes to ROS)
     mujoco_node = Node(
-        package='mujoco_ros',
-        executable='mujoco_sim_node',
+        package='mujoco_rospy',
+        executable='mujoco_node',
         name='mujoco_sim',
         output='screen',
         parameters=[{
             'model_path': model_path,
-            'robot_name': 'T1',
-            'sim_rate': LaunchConfiguration('sim_rate'),
             'publish_rate': LaunchConfiguration('publish_rate'),
-            'joint_names': joint_names,
-            'base_link_name': 'Trunk',
-            'headless': LaunchConfiguration('headless')
+            'use_viewer': PythonExpression(['"', LaunchConfiguration('headless'), '" == "false"'])
         }],
         # Remap joint_states for robot_state_publisher
         remappings=[

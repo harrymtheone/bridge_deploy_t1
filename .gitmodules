@@ -4,3 +4,6 @@
 [submodule "bridge_core"]
 	path = bridge_core
 	url = git@github.com:harrymtheone/bridge_deploy_core.git
+[submodule "mujoco_rospy"]
+	path = mujoco_rospy
+	url = git@github.com:harrymtheone/mujoco_rospy.git

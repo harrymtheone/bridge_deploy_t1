@@ -16,6 +16,7 @@
   <depend>std_srvs</depend>
   <depend>bridge_core</depend>
   <depend>mujoco_ros</depend>
+  <exec_depend>mujoco_rospy</exec_depend>
   <depend>t1_description</depend>
   <depend>ament_index_cpp</depend>
 
