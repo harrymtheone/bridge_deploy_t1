@@ -347,9 +347,9 @@
     <jointvel name="Right_Ankle_Roll_vel" joint="Right_Ankle_Roll"/>
 
     <!-- IMU sensors on Trunk body -->
-    <framequat name="orientation" objtype="site" objname="imu_site"/>
-    <gyro name="angular-velocity" site="imu_site"/>
-    <velocimeter name="linear-velocity" site="imu_site"/>
+    <framequat name="imu_quat" objtype="site" objname="imu_site"/>
+    <gyro name="imu_gyro" site="imu_site"/>
+    <accelerometer name="imu_accel" site="imu_site"/>
     </sensor>
 
     <visual>

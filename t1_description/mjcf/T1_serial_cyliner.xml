@@ -177,6 +177,79 @@
     </body>
   </worldbody>
 
+  <contact>
+    <pair geom1="left_foot" geom2="ground" />
+    <pair geom1="right_foot" geom2="ground" />
+    <pair geom1="left_thigh" geom2="ground" />
+    <pair geom1="right_thigh" geom2="ground" />
+    <pair geom1="left_hand" geom2="ground" />
+    <pair geom1="right_hand" geom2="ground" />
+    <pair geom1="head" geom2="ground" />
+
+    <pair geom1="left_foot" geom2="right_foot" />
+    <pair geom1="left_foot" geom2="right_calf" />
+    <pair geom1="right_foot" geom2="left_calf" />
+    <pair geom1="left_calf" geom2="right_calf" />
+    <pair geom1="left_thigh" geom2="right_thigh" />
+    <pair geom1="left_thigh" geom2="right_calf" />
+    <pair geom1="left_calf" geom2="right_thigh" />
+
+    <pair geom1="left_hand" geom2="head" />
+    <pair geom1="right_hand" geom2="head" />
+  </contact>
+
+  <worldbody>
+        <light directional="true" diffuse=".4 .4 .4" specular="0.1 0.1 0.1" pos="0 0 5.0" dir="0 0 -1" castshadow="false" />
+    <light directional="true" diffuse=".6 .6 .6" specular="0.2 0.2 0.2" pos="0 0 4" dir="0 0 -1" />
+
+    <!-- Ground plane -->
+    <geom name="ground" pos="0 0 0" size="100 100 1" type="plane" material="matplane" margin="0.001" contype="1" conaffinity="15" friction="0.7 0.005 0.0001" />
+
+    <!-- Staircase -->
+<!--    <body name="stairs" pos="1. 0 0">-->
+<!--      <geom name="step0" type="box" size="0.31 1.5 0.04" pos="0.155 0 0.04" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step1" type="box" size="0.31 1.5 0.04" pos="0.465 0 0.12" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step2" type="box" size="0.31 1.5 0.04" pos="0.775 0 0.20" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step3" type="box" size="0.31 1.5 0.04" pos="1.085 0 0.28" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step4" type="box" size="0.31 1.5 0.04" pos="1.395 0 0.36" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step5" type="box" size="0.31 1.5 0.04" pos="1.705 0 0.44" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step6" type="box" size="0.31 1.5 0.04" pos="2.015 0 0.52" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step7" type="box" size="0.31 1.5 0.04" pos="2.325 0 0.60" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step8" type="box" size="0.31 1.5 0.04" pos="2.635 0 0.68" rgba="0.5 0.5 0.5 1"/>-->
+<!--      <geom name="step9" type="box" size="0.31 1.5 0.04" pos="2.945 0 0.76" rgba="0.5 0.5 0.5 1"/>-->
+<!--    </body>-->
+
+    <!-- Staircase - Up-->
+    <body name="stair_up" pos="1. 0 0">
+      <geom name="step_up0" type="box" size="0.31 1.5 0.04" pos="0.155 0 0.04" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up1" type="box" size="0.31 1.5 0.04" pos="0.465 0 0.12" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up2" type="box" size="0.31 1.5 0.04" pos="0.775 0 0.20" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up3" type="box" size="0.31 1.5 0.04" pos="1.085 0 0.28" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up4" type="box" size="0.31 1.5 0.04" pos="1.395 0 0.36" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up5" type="box" size="0.31 1.5 0.04" pos="1.705 0 0.44" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up6" type="box" size="0.31 1.5 0.04" pos="2.015 0 0.52" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up7" type="box" size="0.31 1.5 0.04" pos="2.325 0 0.60" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up8" type="box" size="0.31 1.5 0.04" pos="2.635 0 0.68" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_up9" type="box" size="0.31 1.5 0.04" pos="2.945 0 0.76" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+    </body>
+
+
+      <!-- Staircase - Down -->
+    <body name="stair_down" pos="4.565 0 0">
+      <geom name="step_down0" type="box" size="0.31 1.5 0.04" pos="0 0 0.76" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down1" type="box" size="0.31 1.5 0.04" pos="0.31 0 0.68" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down2" type="box" size="0.31 1.5 0.04" pos="0.62 0 0.60" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down3" type="box" size="0.31 1.5 0.04" pos="0.93 0 0.52" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down4" type="box" size="0.31 1.5 0.04" pos="1.24 0 0.44" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down5" type="box" size="0.31 1.5 0.04" pos="1.55 0 0.36" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down6" type="box" size="0.31 1.5 0.04" pos="1.86 0 0.28" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down7" type="box" size="0.31 1.5 0.04" pos="2.17 0 0.20" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down8" type="box" size="0.31 1.5 0.04" pos="2.48 0 0.12" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+      <geom name="step_down9" type="box" size="0.31 1.5 0.04" pos="2.79 0 0.04" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
+    </body>
+
+  </worldbody>
+
   <actuator>
     <!-- Torque actuators (motor) -->
     <motor name="AAHead_yaw" joint="AAHead_yaw" ctrllimited="true" ctrlrange="-7 7" gear="1" />
@@ -256,82 +329,9 @@
     <jointvel name="Right_Ankle_Roll_vel" joint="Right_Ankle_Roll"/>
 
     <!-- IMU sensors on Trunk body -->
-    <framequat name="orientation" objtype="site" objname="imu_site"/>
-    <gyro name="angular-velocity" site="imu_site"/>
-    <velocimeter name="linear-velocity" site="imu_site"/>
+    <framequat name="imu_quat" objtype="site" objname="imu_site"/>
+    <gyro name="imu_gyro" site="imu_site"/>
+    <accelerometer name="imu_accel" site="imu_site"/>
   </sensor>
-
-  <contact>
-    <pair geom1="left_foot" geom2="ground" />
-    <pair geom1="right_foot" geom2="ground" />
-    <pair geom1="left_thigh" geom2="ground" />
-    <pair geom1="right_thigh" geom2="ground" />
-    <pair geom1="left_hand" geom2="ground" />
-    <pair geom1="right_hand" geom2="ground" />
-    <pair geom1="head" geom2="ground" />
-
-    <pair geom1="left_foot" geom2="right_foot" />
-    <pair geom1="left_foot" geom2="right_calf" />
-    <pair geom1="right_foot" geom2="left_calf" />
-    <pair geom1="left_calf" geom2="right_calf" />
-    <pair geom1="left_thigh" geom2="right_thigh" />
-    <pair geom1="left_thigh" geom2="right_calf" />
-    <pair geom1="left_calf" geom2="right_thigh" />
-
-    <pair geom1="left_hand" geom2="head" />
-    <pair geom1="right_hand" geom2="head" />
-  </contact>
-
-  <worldbody>
-        <light directional="true" diffuse=".4 .4 .4" specular="0.1 0.1 0.1" pos="0 0 5.0" dir="0 0 -1" castshadow="false" />
-    <light directional="true" diffuse=".6 .6 .6" specular="0.2 0.2 0.2" pos="0 0 4" dir="0 0 -1" />
-
-    <!-- Ground plane -->
-    <geom name="ground" pos="0 0 0" size="100 100 1" type="plane" material="matplane" margin="0.001" contype="1" conaffinity="15" friction="0.7 0.005 0.0001" />
-
-    <!-- Staircase -->
-<!--    <body name="stairs" pos="1. 0 0">-->
-<!--      <geom name="step0" type="box" size="0.31 1.5 0.04" pos="0.155 0 0.04" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step1" type="box" size="0.31 1.5 0.04" pos="0.465 0 0.12" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step2" type="box" size="0.31 1.5 0.04" pos="0.775 0 0.20" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step3" type="box" size="0.31 1.5 0.04" pos="1.085 0 0.28" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step4" type="box" size="0.31 1.5 0.04" pos="1.395 0 0.36" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step5" type="box" size="0.31 1.5 0.04" pos="1.705 0 0.44" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step6" type="box" size="0.31 1.5 0.04" pos="2.015 0 0.52" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step7" type="box" size="0.31 1.5 0.04" pos="2.325 0 0.60" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step8" type="box" size="0.31 1.5 0.04" pos="2.635 0 0.68" rgba="0.5 0.5 0.5 1"/>-->
-<!--      <geom name="step9" type="box" size="0.31 1.5 0.04" pos="2.945 0 0.76" rgba="0.5 0.5 0.5 1"/>-->
-<!--    </body>-->
-
-    <!-- Staircase - Up-->
-    <body name="stair_up" pos="1. 0 0">
-      <geom name="step_up0" type="box" size="0.31 1.5 0.04" pos="0.155 0 0.04" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up1" type="box" size="0.31 1.5 0.04" pos="0.465 0 0.12" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up2" type="box" size="0.31 1.5 0.04" pos="0.775 0 0.20" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up3" type="box" size="0.31 1.5 0.04" pos="1.085 0 0.28" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up4" type="box" size="0.31 1.5 0.04" pos="1.395 0 0.36" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up5" type="box" size="0.31 1.5 0.04" pos="1.705 0 0.44" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up6" type="box" size="0.31 1.5 0.04" pos="2.015 0 0.52" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up7" type="box" size="0.31 1.5 0.04" pos="2.325 0 0.60" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up8" type="box" size="0.31 1.5 0.04" pos="2.635 0 0.68" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_up9" type="box" size="0.31 1.5 0.04" pos="2.945 0 0.76" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-    </body>
-
-
-      <!-- Staircase - Down -->
-    <body name="stair_down" pos="4.565 0 0">
-      <geom name="step_down0" type="box" size="0.31 1.5 0.04" pos="0 0 0.76" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down1" type="box" size="0.31 1.5 0.04" pos="0.31 0 0.68" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down2" type="box" size="0.31 1.5 0.04" pos="0.62 0 0.60" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down3" type="box" size="0.31 1.5 0.04" pos="0.93 0 0.52" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down4" type="box" size="0.31 1.5 0.04" pos="1.24 0 0.44" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down5" type="box" size="0.31 1.5 0.04" pos="1.55 0 0.36" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down6" type="box" size="0.31 1.5 0.04" pos="1.86 0 0.28" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down7" type="box" size="0.31 1.5 0.04" pos="2.17 0 0.20" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down8" type="box" size="0.31 1.5 0.04" pos="2.48 0 0.12" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-      <geom name="step_down9" type="box" size="0.31 1.5 0.04" pos="2.79 0 0.04" rgba="0.5 0.5 0.5 1" contype="1" conaffinity="3"/>
-    </body>
-
-  </worldbody>
 
 </mujoco>

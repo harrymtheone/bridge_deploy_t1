@@ -33,9 +33,9 @@ robot:
 
 algorithm:
   name: "Mod"
-  model_name: "t1_mod_forward_blind_001_19500.onnx"
-  dt: 0.002
-  decimation: 10
+  model_name: "t1_mod_omni_blind_001_15000.onnx"
+  dt: 0.004
+  decimation: 5
   
   # Scaling factors
   action_scale: 0.5
