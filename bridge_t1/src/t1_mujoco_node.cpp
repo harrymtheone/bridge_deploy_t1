@@ -25,6 +25,7 @@
 
 #include <mutex>
 #include <memory>
+#include <chrono>
 
 using namespace bridge_core;
 
@@ -55,6 +56,11 @@ public:
         
         // Service clients
         reset_client_ = node_->create_client<std_srvs::srv::Empty>("/mujoco/reset");
+        
+        // Watchdog timer to check for stale data (runs every 1 second)
+        watchdog_timer_ = node_->create_wall_timer(
+            std::chrono::seconds(1),
+            std::bind(&MujocoSimInterface::watchdogCallback, this));
         
         RCLCPP_INFO(node_->get_logger(), "MujocoSimInterface initialized");
     }
@@ -146,6 +152,8 @@ private:
     void jointStateCallback(const sensor_msgs::msg::JointState::SharedPtr msg) {
         std::lock_guard<std::mutex> lock(state_mutex_);
         
+        last_joint_state_time_ = std::chrono::steady_clock::now();
+        
         for (size_t i = 0; i < msg->name.size(); ++i) {
             auto it = joint_name_to_idx_.find(msg->name[i]);
             if (it != joint_name_to_idx_.end()) {
@@ -164,6 +172,8 @@ private:
     
     void imuCallback(const sensor_msgs::msg::Imu::SharedPtr msg) {
         std::lock_guard<std::mutex> lock(state_mutex_);
+        
+        last_imu_time_ = std::chrono::steady_clock::now();
         
         state_.imu.quaternion[0] = static_cast<float>(msg->orientation.w);
         state_.imu.quaternion[1] = static_cast<float>(msg->orientation.x);
@@ -185,10 +195,58 @@ private:
     void odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg) {
         std::lock_guard<std::mutex> lock(state_mutex_);
         
+        last_odom_time_ = std::chrono::steady_clock::now();
+        
         // Linear velocity in world frame - transform to body frame if needed
         state_.lin_vel_b[0] = static_cast<float>(msg->twist.twist.linear.x);
         state_.lin_vel_b[1] = static_cast<float>(msg->twist.twist.linear.y);
         state_.lin_vel_b[2] = static_cast<float>(msg->twist.twist.linear.z);
+    }
+    
+    void watchdogCallback() {
+        auto now = std::chrono::steady_clock::now();
+        constexpr auto timeout = std::chrono::seconds(1);
+        
+        std::lock_guard<std::mutex> lock(state_mutex_);
+        
+        // Check joint state timeout
+        if (last_joint_state_time_.time_since_epoch().count() > 0) {
+            auto elapsed = now - last_joint_state_time_;
+            if (elapsed > timeout) {
+                RCLCPP_WARN_THROTTLE(node_->get_logger(), *node_->get_clock(), 2000,
+                    "JointState not received for %.1f seconds!", 
+                    std::chrono::duration<float>(elapsed).count());
+            }
+        } else {
+            RCLCPP_WARN_THROTTLE(node_->get_logger(), *node_->get_clock(), 2000,
+                "JointState never received!");
+        }
+        
+        // Check IMU timeout
+        if (last_imu_time_.time_since_epoch().count() > 0) {
+            auto elapsed = now - last_imu_time_;
+            if (elapsed > timeout) {
+                RCLCPP_WARN_THROTTLE(node_->get_logger(), *node_->get_clock(), 2000,
+                    "IMU not received for %.1f seconds!", 
+                    std::chrono::duration<float>(elapsed).count());
+            }
+        } else {
+            RCLCPP_WARN_THROTTLE(node_->get_logger(), *node_->get_clock(), 2000,
+                "IMU never received!");
+        }
+        
+        // Check Odom timeout
+        if (last_odom_time_.time_since_epoch().count() > 0) {
+            auto elapsed = now - last_odom_time_;
+            if (elapsed > timeout) {
+                RCLCPP_WARN_THROTTLE(node_->get_logger(), *node_->get_clock(), 2000,
+                    "Odometry not received for %.1f seconds!", 
+                    std::chrono::duration<float>(elapsed).count());
+            }
+        } else {
+            RCLCPP_WARN_THROTTLE(node_->get_logger(), *node_->get_clock(), 2000,
+                "Odometry never received!");
+        }
     }
     
     rclcpp::Node::SharedPtr node_;
@@ -201,6 +259,11 @@ private:
     bool is_ready_ = false;
     bool is_paused_ = false;
     
+    // Timestamps for watchdog
+    std::chrono::steady_clock::time_point last_joint_state_time_;
+    std::chrono::steady_clock::time_point last_imu_time_;
+    std::chrono::steady_clock::time_point last_odom_time_;
+    
     // Publisher for combined control command
     rclcpp::Publisher<mujoco_ros_msgs::msg::JointControlCmd>::SharedPtr joint_cmd_pub_;
     
@@ -208,6 +271,9 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_sub_;
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_sub_;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
+    
+    // Watchdog timer
+    rclcpp::TimerBase::SharedPtr watchdog_timer_;
     
     // Service clients
     rclcpp::Client<std_srvs::srv::Empty>::SharedPtr reset_client_;
