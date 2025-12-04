@@ -53,6 +53,12 @@ def generate_launch_description():
         default_value='false',
         description='Run without MuJoCo GUI visualization'
     )
+
+    render_rate_arg = DeclareLaunchArgument(
+        'render_rate',
+        default_value='200.0',
+        description='Maximum rendering rate in FPS (0 for unlimited)'
+    )
     
     # Get package share directories
     t1_description_share = FindPackageShare('t1_description')
@@ -81,7 +87,8 @@ def generate_launch_description():
         parameters=[{
             'model_path': model_path,
             'publish_rate': LaunchConfiguration('publish_rate'),
-            'headless': LaunchConfiguration('headless')
+            'headless': LaunchConfiguration('headless'),
+            'render_rate': LaunchConfiguration('render_rate')
         }]
     )
     
@@ -124,6 +131,7 @@ def generate_launch_description():
         publish_rate_arg,
         rviz_arg,
         headless_arg,
+        render_rate_arg,
         mujoco_node,
         joy_node,
         rviz_node,
