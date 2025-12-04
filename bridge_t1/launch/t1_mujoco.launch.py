@@ -82,11 +82,7 @@ def generate_launch_description():
             'model_path': model_path,
             'publish_rate': LaunchConfiguration('publish_rate'),
             'headless': LaunchConfiguration('headless')
-        }],
-        # Remap joint_states for robot_state_publisher
-        remappings=[
-            ('/mujoco/joint_states', '/joint_states')
-        ]
+        }]
     )
     
     # T1 controller node
