@@ -14,7 +14,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(bridge_core REQUIRED)
-find_package(mujoco_ros REQUIRED)
+find_package(mujoco_ros_msgs REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 
 # Create T1 MuJoCo node
@@ -33,7 +33,7 @@ ament_target_dependencies(t1_mujoco_node
     nav_msgs
     std_srvs
     bridge_core
-    mujoco_ros
+    mujoco_ros_msgs
     ament_index_cpp
 )
 

@@ -8,11 +8,10 @@ This launch file starts:
 4. (Optional) RViz for visualization
 """
 
-import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, ExecuteProcess
+from launch.actions import DeclareLaunchArgument
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, Command, PythonExpression
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -82,7 +81,7 @@ def generate_launch_description():
         parameters=[{
             'model_path': model_path,
             'publish_rate': LaunchConfiguration('publish_rate'),
-            'use_viewer': PythonExpression(['"', LaunchConfiguration('headless'), '" == "false"'])
+            'headless': LaunchConfiguration('headless')
         }],
         # Remap joint_states for robot_state_publisher
         remappings=[

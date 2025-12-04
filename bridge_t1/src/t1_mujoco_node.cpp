@@ -14,7 +14,7 @@
 #include <std_srvs/srv/empty.hpp>
 #include <ament_index_cpp/get_package_share_directory.hpp>
 
-#include <mujoco_ros/msg/joint_control_cmd.hpp>
+#include <mujoco_ros_msgs/msg/joint_control_cmd.hpp>
 
 #include <bridge_core/core/types.hpp>
 #include <bridge_core/core/config_manager.hpp>
@@ -37,7 +37,7 @@ public:
         : node_(node)
     {
         // Publisher for combined joint control command
-        joint_cmd_pub_ = node_->create_publisher<mujoco_ros::msg::JointControlCmd>(
+        joint_cmd_pub_ = node_->create_publisher<mujoco_ros_msgs::msg::JointControlCmd>(
             "/mujoco/joint_cmd", 10);
         
         // Subscribers for sensor data
@@ -79,7 +79,7 @@ public:
     }
     
     void sendCommand(const RobotCommand& command) override {
-        mujoco_ros::msg::JointControlCmd cmd_msg;
+        mujoco_ros_msgs::msg::JointControlCmd cmd_msg;
         cmd_msg.header.stamp = node_->now();
         
         // Position commands
@@ -202,7 +202,7 @@ private:
     bool is_paused_ = false;
     
     // Publisher for combined control command
-    rclcpp::Publisher<mujoco_ros::msg::JointControlCmd>::SharedPtr joint_cmd_pub_;
+    rclcpp::Publisher<mujoco_ros_msgs::msg::JointControlCmd>::SharedPtr joint_cmd_pub_;
     
     // Subscribers
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_sub_;
