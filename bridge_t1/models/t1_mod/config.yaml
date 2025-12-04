@@ -50,7 +50,7 @@ algorithm:
   clip_actions_upper: 100.0
   
   # Command scaling [x, y, yaw]
-  commands_scale: [0.4, 0.4, 0.8]
+  commands_scale: [2.0, 2.0, 1.0]
   joystick_scale: [0.6, 0.4, 0.8]
 
 control:
