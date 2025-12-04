@@ -56,7 +56,7 @@ def generate_launch_description():
 
     render_rate_arg = DeclareLaunchArgument(
         'render_rate',
-        default_value='200.0',
+        default_value='60.0',
         description='Maximum rendering rate in FPS (0 for unlimited)'
     )
     
@@ -67,16 +67,6 @@ def generate_launch_description():
     model_path = PathJoinSubstitution([
         t1_description_share, 'mjcf', LaunchConfiguration('mjcf_model')
     ])
-    
-    # Joint names for T1
-    joint_names = [
-        'AAHead_yaw', 'Head_pitch',
-        'Left_Shoulder_Pitch', 'Left_Shoulder_Roll', 'Left_Elbow_Pitch', 'Left_Elbow_Yaw',
-        'Right_Shoulder_Pitch', 'Right_Shoulder_Roll', 'Right_Elbow_Pitch', 'Right_Elbow_Yaw',
-        'Waist',
-        'Left_Hip_Pitch', 'Left_Hip_Roll', 'Left_Hip_Yaw', 'Left_Knee_Pitch', 'Left_Ankle_Pitch', 'Left_Ankle_Roll',
-        'Right_Hip_Pitch', 'Right_Hip_Roll', 'Right_Hip_Yaw', 'Right_Knee_Pitch', 'Right_Ankle_Pitch', 'Right_Ankle_Roll'
-    ]
     
     # MuJoCo simulation node (runs physics and publishes to ROS)
     mujoco_node = Node(
