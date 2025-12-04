@@ -1,6 +1,3 @@
-[submodule "mujoco_ros"]
-	path = mujoco_ros
-	url = git@github.com:harrymtheone/mujoco_ros.git
 [submodule "bridge_core"]
 	path = bridge_core
 	url = git@github.com:harrymtheone/bridge_deploy_core.git
